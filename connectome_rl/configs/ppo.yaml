@@ -1,0 +1,15 @@
+# PPO Hyperparameters for Continuous Locomotion
+
+ppo:
+  lr: 0.0003
+  lr_schedule: "linear"       # "linear" or "constant"
+  gamma: 0.99                 # Discount factor
+  gae_lambda: 0.95            # Generalized Advantage Estimation parameter
+  clip_ratio: 0.2             # PPO clip parameter epsilon
+  entropy_coeff: 0.01         # Exploration bonus coefficient
+  value_coeff: 0.5            # Critic loss coefficient
+  max_grad_norm: 0.5          # Gradient clipping norm
+  n_epochs: 10                # Optimization epochs per rollout
+  batch_size: 64              # Minibatch size for SGD updates
+  rollout_steps: 2048         # Steps per policy rollout before update
+  target_kl: 0.015            # Early stopping KL divergence threshold

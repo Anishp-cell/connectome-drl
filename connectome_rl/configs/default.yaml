@@ -1,0 +1,36 @@
+# Default master configuration for Embodied Connectomics pipeline
+
+neuprint:
+  server: "https://neuprint.janelia.org"
+  dataset: "male-cns:v1.0"
+  token_env_var: "NEUPRINT_APPLICATION_CREDENTIALS"
+
+connectome:
+  target_dns:
+    - "DNa01"  # Contralateral steering / turning
+    - "DNa02"  # Forward velocity / speed modulation
+    - "DNg13"  # Rapid escape / fast backward-backward stepping
+  synapse_threshold: 3
+  max_subgraph_nodes: 1000
+  cache_dir: "connectome_rl/data"
+
+simulation:
+  timestep: 0.0001        # 0.1 ms physics integration timestep
+  control_dt: 0.01        # 10 ms control step (100 physics substeps)
+  max_episode_steps: 1000 # 10 seconds of simulated time
+  fly_name: "fly0"
+  terrain: "flat"
+
+reward:
+  forward_velocity_weight: 1.0
+  energy_penalty_weight: 0.001
+  roll_pitch_stability_weight: 0.05
+  termination_height_threshold: 0.0002 # Fall threshold (meters)
+
+hardware:
+  device: "cuda"          # Policy/PPO updates on GPU, MuJoCo on CPU
+  batch_size: 64          # Fit within 8GB VRAM constraint
+  num_workers: 1          # Windows multiprocessing safety
+
+reproducibility:
+  seed: 42

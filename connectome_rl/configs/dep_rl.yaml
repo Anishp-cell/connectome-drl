@@ -1,0 +1,9 @@
+# DEP-RL (Differential Extrinsic Plasticity) Exploration Controller Parameters
+
+dep_rl:
+  enabled: true
+  exploration_steps: 10000    # Initial exploration steps before PPO takeover
+  learning_rate: 0.1          # Plasticity learning rate (epsilon)
+  regularization: 0.01        # Weight decay / regularization parameter
+  kappa: 1.0                  # Gain factor for sensorimotor feedback
+  sensor_delay_steps: 1       # Delay buffer for velocity correlation
