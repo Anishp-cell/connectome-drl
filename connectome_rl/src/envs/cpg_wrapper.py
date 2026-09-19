@@ -49,6 +49,7 @@ class CPGLocomotionEnv(gym.Env):
         spawn_pos: tuple[float, float, float] = (0.0, 0.0, 0.25),
         enable_adhesion: bool = True,
         draw_corrections: bool = False,
+        freq_scale: float = 1.0,
         seed: int = 0,
     ) -> None:
         super().__init__()
@@ -56,6 +57,7 @@ class CPGLocomotionEnv(gym.Env):
         self.spawn_pos = spawn_pos
         self.enable_adhesion = enable_adhesion
         self.draw_corrections = draw_corrections
+        self.freq_scale = freq_scale
         self._seed = seed
 
         # Contact sensors needed for stumbling and retraction reflexes
@@ -75,6 +77,10 @@ class CPGLocomotionEnv(gym.Env):
             draw_corrections=self.draw_corrections,
             timestep=self.timestep,
         )
+
+        # Scale biological CPG stepping frequency (default 12 Hz)
+        if self.freq_scale != 1.0:
+            self.fly.intrinsic_freqs = self.fly.intrinsic_freqs * float(self.freq_scale)
 
         # 2. Build MuJoCo physics simulation
         self.sim = SingleFlySimulation(

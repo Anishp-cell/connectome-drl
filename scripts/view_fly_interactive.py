@@ -67,7 +67,8 @@ def launch_interactive_viewer(
 
     if mode == "walking":
         print("\n[1/2] Initializing Biological CPG Locomotion Engine (FlyGym v1.2.1)...")
-        env = CPGLocomotionEnv(enable_adhesion=True, seed=0)
+        # Scale CPG oscillation frequency biologically so the fly sprints without lagging CPU
+        env = CPGLocomotionEnv(enable_adhesion=True, freq_scale=speed, seed=0)
         m = env.sim.physics.model.ptr
         d = env.sim.physics.data.ptr
     else:
@@ -135,7 +136,9 @@ def launch_interactive_viewer(
         print(">>> Tip: Use Mouse Scroll Wheel or Right-Click Drag to Zoom! <<<\n")
 
         prev_action = np.zeros(42, dtype=np.float32)
-        n_steps = max(1, int(15 * speed)) if mode == "walking" else max(1, int(physics_substeps))
+        # Keep physics substeps per visual frame constant and lightweight (15 steps)
+        # Walking speed is driven biologically by CPG oscillation frequency (freq_scale)
+        n_steps = 15 if mode == "walking" else max(1, int(physics_substeps))
 
         while viewer.is_running():
             for _ in range(n_steps):
