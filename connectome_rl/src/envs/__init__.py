@@ -5,9 +5,12 @@ from connectome_rl.src.envs.rewards import (
     LocomotionRewardWeights,
 )
 from connectome_rl.src.envs.fly_wrapper import FlyLocomotionEnv
+from connectome_rl.src.envs.cpg_wrapper import CPGLocomotionEnv
 
 __all__ = [
     "FlyLocomotionEnv",
+    "CPGLocomotionEnv",
     "LocomotionRewardCalculator",
     "LocomotionRewardWeights",
 ]
+

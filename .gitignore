@@ -68,6 +68,7 @@ venv.bak/
 # Temporary MuJoCo / Simulation logs & scratch files
 MJDATA.TXT
 scratch_*.py
+scratch/
 runs/
 
 # macOS
